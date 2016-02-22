@@ -1,0 +1,25 @@
+{
+  "name": "Assessor",
+  "plural": "Assessors",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "name": {
+      "type": "string",
+      "required": true
+    }
+  },
+  "validations": [],
+  "relations": {
+    "employers": {
+      "type": "hasMany",
+      "model": "Employer",
+      "foreignKey": ""
+    }
+  },
+  "acls": [],
+  "methods": {}
+}

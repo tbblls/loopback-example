@@ -1,0 +1,29 @@
+{
+  "name": "task",
+  "plural": "Tasks",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "timingsComplete": {
+      "type": "boolean",
+      "required": true
+    }
+  },
+  "validations": [],
+  "relations": {
+    "timings": {
+      "type": "hasMany",
+      "model": "Timing",
+      "foreignKey": ""
+    }
+  },
+  "acls": [],
+  "methods": {}
+}
