@@ -95,7 +95,7 @@ To modify a model you need to edit the models json file.
   "validations": [],
   "relations": {
     "employers": {
-      "type": "hasMany",
+      "type": "hasMany",    
       "model": "Employer",
       "foreignKey": ""
     }

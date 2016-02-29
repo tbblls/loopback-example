@@ -1,44 +1,34 @@
 {
-  "name": "Employer",
-  "plural": "Employers",
-  "base": "PersistedModel",
+  "name": "UserModel",
+  "base": "User",
+  "strict": false,
   "idInjection": false,
   "options": {
     "validateUpsert": true
   },
   "properties": {
-    "name": {
+    "userType": {
       "type": "string",
       "required": true
-    },
-    "address": {
-      "type": "string"
-    },
-    "contactEmail": {
-      "type": "string"
-    },
-    "contactMobile": {
-      "type": "string"
-    },
-    "contactName": {
-      "type": "string"
-    },
-    "contactPhone": {
-      "type": "string"
-    },
-    "moreInfo": {
-      "type": "string"
     }
   },
   "validations": [],
   "relations": {
-    "employees": {
+    "roles": {
       "type": "hasMany",
-      "model": "Employee"
+      "model": "Role",
+      "foreignKey": "principalId",
+      "through": "RoleMapping"
     },
-    "duties": {
-      "type": "hasMany",
-      "model": "Duty"
+    "assessor": {
+      "type": "belongsTo",
+      "model": "Assessor",
+      "foreignKey": "assessorId"
+    },
+    "employer": {
+      "type": "belongsTo",
+      "model": "Employer",
+      "foreignKey": "employerId"
     }
   },
   "acls": [

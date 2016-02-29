@@ -10,6 +10,8 @@
   "dependencies": {
     "compression": "^1.0.3",
     "cors": "^2.5.2",
+    "debug": "^2.2.0",
+    "es6-shim": "^0.34.4",
     "helmet": "^0.14.0",
     "loopback": "^2.22.0",
     "loopback-boot": "^2.6.5",

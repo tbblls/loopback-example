@@ -1,49 +1,27 @@
 {
-  "name": "Employee",
-  "plural": "Employees",
+  "name": "EmployeeTask",
   "base": "PersistedModel",
-  "idInjection": true,
+  "strict": false,
+  "idInjection": false,
   "options": {
     "validateUpsert": true
   },
   "properties": {
-    "name": {
-      "type": "string",
-      "required": true
-    },
-    "assessmentStatus": {
+    "status": {
       "type": "string"
     },
-    "contactEmail": {
+    "title": {
       "type": "string"
     },
-    "contactPhone": {
-      "type": "string"
-    },
-    "currentWagePH": {
-      "type": "string"
-    },
-    "dob": {
-      "type": "string"
-    },
-    "employeeId": {
-      "type": "string"
-    },
-    "hoursPerWeek": {
-      "type": "string"
-    },
-    "nominee": {
-      "type": "string"
-    },
-    "role": {
+    "weighting": {
       "type": "string"
     }
   },
   "validations": [],
   "relations": {
-    "tasks": {
+    "timings": {
       "type": "hasMany",
-      "model": "EmployeeTask",
+      "model": "Timing",
       "foreignKey": ""
     }
   },

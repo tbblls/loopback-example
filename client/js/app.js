@@ -1,25 +1,26 @@
 (function(myAppApi){
 // Pass in app api module for use in application
 
-  var app = (function($, myAppApi){
+  var assessmentApp = (function($, app){
     // This module simplifies the implementation of the application
 
+    var appApi = {};
     // This object will be exposed by the module
-    var api = {};
-    // Namespace assessor, employer, ui functionality
-    api.assessors = {};
-    api.employers = {};
-    api.ui = {};
+    var api = {
+      assessors: {},
+      employers: {},
+      ui: {}
+    };
 
     // call the myAppApi to get all Assessors and then initialises the screen
     function showAssessors(){
-      myAppApi.getAssessors()
+      appApi.assessor.getAll()
         .then(initAssessors);
     }
 
     // call the myAppApi to get all employers for an assessor and then initialises the screen
     function showEmployers(assessor){
-      myAppApi.getAssessorEmployers(assessor.id)
+      appApi.assessor.getChildren(assessor.id, "employers")
       .then(function(response){
         setAssessorEmployers(assessor, response);
       });
@@ -39,11 +40,12 @@
       populateList($("#assessorsList"), response.data, "name", "id","assessor");
       $(".assessorLink").on('click', assessorClick);
       $("#assessorName").val("");
+      $(".assessor").hide();
     }
 
     // Initailises signIn details on the screen
     function signInInit(username){
-      signInToggle(true);
+      api.ui.toggleSignIn(true);
       $("#username").val(username);
       $("#password").val('');
     }
@@ -71,9 +73,12 @@
     }
 
     // Attempts to sign user in
-    api.signIn = function(){
-      myAppApi.login($("#username").val(), $("#password").val())
+    api.signIn = function(e){
+      e.preventDefault();
+
+      app.login($("#username").val(), $("#password").val())
         .then(function(data) {
+          appApi = data.api;
           $(".signIn").hide();
           $(".signedIn").show();
           showAssessors();
@@ -88,7 +93,7 @@
         var username = $("#regUsername").val().trim(),
             pwd = $("#regPassword").val().trim();
 
-        myAppApi.register(username, pwd)
+        app.register(username, pwd)
           .then(function() {
             signInInit(username);
           })
@@ -99,7 +104,7 @@
 
     // Signs out signed in user
     api.signOut = function(){
-      myAppApi.signOut()
+      app.signOut()
         .then(function() {
           $(".signIn").show();
           $(".signedIn").hide();
@@ -108,7 +113,7 @@
 
     // Adds a new Assessor
     api.assessors.add = function(){
-      myAppApi.addAssessor({
+      appApi.assessor.add({
           name: $("#assessorName").val()
         })
       .then(showAssessors);
@@ -117,7 +122,7 @@
     // Adds a new Employer
     api.employers.add = function(){
       var assessorId = $(".assessorLink.active").attr('data-assessorId');
-      myAppApi.addEmployer({
+      appApi.addEmployer({
         name: $("#employerName").val(),
         "assessorId": assessorId
       })
@@ -137,26 +142,26 @@
     };
 
     return api;
-  }(jQuery, myAppApi));
+  }(jQuery, api));
 
 
 
-  $("#register").on('click', app.register);
-  $("#signIn").on('click', app.signIn);
-  $("#signOut").on("click", app.signOut);
+  $("#register").on('click', assessmentApp.register);
+  $("#signIn").on('click', assessmentApp.signIn);
+  $("#signOut").on("click", assessmentApp.signOut);
 
-  $("#addAssessor").on("click", app.assessors.add);
-  $("#addEmployer").on('click', app.employers.add);
+  $("#addAssessor").on("click", assessmentApp.assessors.add);
+  $("#addEmployer").on('click', assessmentApp.employers.add);
 
   $("#showSignIn").on('click', function() {
-    app.ui.toggleSignIn(true);
+    assessmentApp.ui.toggleSignIn(true);
   });
 
   $("#showReg").on('click', function() {
-    app.ui.toggleSignIn(false);
+    assessmentApp.ui.toggleSignIn(false);
   });
 
 
 
 
-}(myAppApi))
+}())

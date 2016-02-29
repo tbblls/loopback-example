@@ -1,29 +1,58 @@
 {
-  "name": "task",
-  "plural": "Tasks",
+  "name": "Task",
   "base": "PersistedModel",
-  "idInjection": true,
+  "strict": false,
+  "idInjection": false,
   "options": {
     "validateUpsert": true
   },
   "properties": {
-    "name": {
-      "type": "string",
-      "required": true
+    "allocatedTimeSeconds": {
+      "type": "number"
     },
-    "timingsComplete": {
-      "type": "boolean",
-      "required": true
+    "benchmark": {
+      "type": "string"
+    },
+    "benchmarkCreated": {
+      "type": "string"
+    },
+    "itemsToComplete": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string"
+    },
+    "taskDescription": {
+      "type": "string"
+    },
+    "timingTypeByTime": {
+      "type": "string"
+    },
+    "title": {
+      "type": "string"
     }
   },
   "validations": [],
   "relations": {
-    "timings": {
+    "employeeTasks": {
       "type": "hasMany",
-      "model": "Timing",
+      "model": "EmployeeTask",
       "foreignKey": ""
     }
   },
-  "acls": [],
+  "acls": [
+    {
+      "accessType": "*",
+      "principalType": "ROLE",
+      "principalId": "admin",
+      "permission": "ALLOW"
+    },
+    {
+      "accessType": "READ",
+      "principalType": "ROLE",
+      "principalId": "$unauthenticated",
+      "permission": "DENY"
+    }
+  ],
   "methods": {}
 }

@@ -7,16 +7,52 @@
     "validateUpsert": true
   },
   "properties": {
-    "timeElapsed": {
-      "type": "number",
-      "required": true
-    },
     "notes": {
       "type": "string"
+    },
+    "title": {
+      "type": "string"
+    },
+    "dateCompleted": {
+      "type": "date"
+    },
+    "qualityPercent": {
+      "type": "string"
+    },
+    "result": {
+      "type": "string"
+    },
+    "resultOriginal": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string"
+    },
+    "percentage": {
+      "type": "number"
+    },
+    "excludeTiming": {
+      "type": "boolean"
+    },
+    "resultAdjusted": {
+      "type": "boolean"
     }
   },
   "validations": [],
   "relations": {},
-  "acls": [],
+  "acls": [
+    {
+      "accessType": "*",
+      "principalType": "ROLE",
+      "principalId": "admin",
+      "permission": "ALLOW"
+    },
+    {
+      "accessType": "READ",
+      "principalType": "ROLE",
+      "principalId": "$unauthenticated",
+      "permission": "DENY"
+    }
+  ],
   "methods": {}
 }
